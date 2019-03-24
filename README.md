@@ -5,6 +5,7 @@ how to run this application:
 - open your terminal, then proceed to the folder that contain this project
 - type npm install command in the terminal to install all of dependancy of this project
 - type npm start to run the project
+- type http://localhost:8888 to browser to run this project
 
 
 please, don't forget to run sql command to make the database.
