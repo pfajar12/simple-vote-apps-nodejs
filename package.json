@@ -1,0 +1,29 @@
+{
+  "name": "posttest",
+  "version": "1.0.0",
+  "description": "this is post test using only express",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./tests --recursive",
+    "start": "nodemon index.js"
+  },
+  "author": "Putra Fajar",
+  "license": "ISC",
+  "dependencies": {
+    "@avaly/connect-flash": "^1.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "flash": "^1.1.0",
+    "js-alert": "^1.0.4",
+    "md5": "^2.2.1",
+    "mysql": "^2.16.0",
+    "swig": "^1.4.2",
+    "swig-templates": "^2.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10"
+  }
+}

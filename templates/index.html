@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Welcome, {{datauser.username}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if datauser.role==1 %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/candidate">Candidate List</a>
+            </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <a href="/logout" class="text-white">Logout</a>
+        </form>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <h4>Choose user to vote</h4>
+            <form method="post" action="" id="votingform">
+                <select name="usertovote" id="usertovote" class="form-control">
+                    <option value="">Please select one</option>
+                    <optgroup label="User">
+                        {% for data in userlist %}
+                            <option value={{data.id}}>{{data.username}}</option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
+                <button type="button" class="btn btn-primary mt-3" onclick="checkform()">Choose</button>
+            </form>
+
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    {% if flashmsg_failvote.length > 0 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{flashmsg_failvote}}
+                    </div>
+                    {% endif %}
+
+                    {% if flashmsg_successvote.length > 0 %}
+                    <div class="alert alert-success" role="alert">
+                        {{flashmsg_successvote}}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-8">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Total Vote</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in datavote %}
+                        <tr>
+                            <td>{{data.username}}</td>
+                            <td>{{data.totalvote}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkform() {
+        if($('#usertovote').val()==""){
+            alert('you don\'t vote anyone yet');
+        }
+        else{
+            $('#votingform').submit();
+        }
+    }
+</script>
+{% endblock %}

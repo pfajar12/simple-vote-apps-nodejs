@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Welcome, {{datauser.username}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if datauser.role==1 %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/candidate">Candidate List</a>
+            </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <a href="/logout" class="text-white">Logout</a>
+        </form>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h3>Add new candidate</h3>
+            <form action="" method="post" id="newcandidateform">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" class="form-control" name="username" type="text">
+                </div>
+                <a class="btn btn-primary" href="/candidate">Back</a>
+                <button class="btn btn-success" type="button" onclick="checkform()">Save</button>
+            </form>
+
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    {% if flashmsg_erroraddcandidate.length > 0 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{flashmsg_erroraddcandidate}}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkform() {
+        if($('#username').val()==""){
+            alert('Form cannot be empty');
+        }
+        else{
+            $('#newcandidateform').submit();
+        }
+    }
+</script>
+{% endblock %}

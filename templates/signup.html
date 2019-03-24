@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container">
+        <div class="rect-login col-12 col-md-6 offset-md-3">
+            <form method="post" action="" id="signupform">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" class="form-control" name="username" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" class="form-control" name="password" type="password">
+                </div>
+                <button type="button" class="btn btn-primary form-control" onclick="checkform()">Signup</button>
+            </form>
+            <div class="text-center">Already have an account? Sign in <a href="/login">here</a></div>
+        </div>
+        
+        <div class="col-12 col-md-6 offset-md-3 text-center mt-3">
+            {% if flashmsg_err.length > 0 %}
+            <div class="alert alert-danger" role="alert">
+                {{flashmsg_err}}
+            </div>
+            {% endif %}
+
+            {% if flashmsg_succes.length > 0 %}
+            <div class="alert alert-success" role="alert">
+                {{flashmsg_succes}}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function checkform() {
+            if($('#username').val()=="" || $('#password').val()==""){
+                alert('form cannot be empty')
+            }
+            else{
+                $('#signupform').submit();
+            }
+        }
+    </script>
+
+{% endblock %}

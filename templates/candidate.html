@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Welcome, {{datauser.username}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if datauser.role==1 %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/candidate">Candidate List</a>
+            </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <a href="/logout" class="text-white">Logout</a>
+        </form>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <a href="/candidate/add" class="btn btn-primary mb-3">Add New Candidate</a>
+
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    {% if flashmsg_successadd.length > 0 %}
+                    <div class="alert alert-success" role="alert">
+                        {{flashmsg_successadd}}
+                    </div>
+                    {% endif %}
+
+                    {% if flashmsg_successaddvote.length > 0 %}
+                    <div class="alert alert-success" role="alert">
+                        {{flashmsg_successaddvote}}
+                    </div>
+                    {% endif %}
+
+                    {% if flashmsg_successremovevote.length > 0 %}
+                    <div class="alert alert-success" role="alert">
+                        {{flashmsg_successremovevote}}
+                    </div>
+                    {% endif %}
+
+                    {% if flashmsg_successdeletecandidate.length > 0 %}
+                    <div class="alert alert-success" role="alert">
+                        {{flashmsg_successdeletecandidate}}
+                    </div>
+                    {% endif %}
+
+                    {% if flashmsg_successresetvote.length > 0 %}
+                    <div class="alert alert-success" role="alert">
+                        {{flashmsg_successresetvote}}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Total Vote</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in datavote %}
+                        <tr>
+                            <td>{{data.username}}</td>
+                            <td>{{data.totalvote}}</td>
+                            <td>
+                                <a href="/detail-vote/{{data.id}}" class="btn btn-info">Detail votes of candidate</a>
+                                <a href="/add-vote/{{data.id}}" onclick="return confirm('Are you sure to add a vote to this candidate?')" class="btn btn-success">Add a vote</a>
+                                <a href="/remove-vote/{{data.id}}" onclick="return confirm('Are you sure to remove a vote to this candidate?')" class="btn btn-warning">Remove a vote</a>
+                                <a href="/delete-candidate/{{data.id}}" onclick="return confirm('Are you sure to delete this candidate?')" class="btn btn-danger">Delete candidate</a>
+                                <a href="/reset-vote/{{data.id}}" onclick="return confirm('Are you sure to reset vote from this candidate?')" class="btn btn-secondary">Reset vote</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkform() {
+        if($('#usertovote').val()==""){
+            alert('you don\'t vote anyone yet');
+        }
+        else{
+            $('#votingform').submit();
+        }
+    }
+</script>
+{% endblock %}
