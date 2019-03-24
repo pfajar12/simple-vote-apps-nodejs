@@ -10,3 +10,5 @@ how to run this application:
 
 please, don't forget to run sql command to make the database.
 you can download here https://github.com/pfajar12/simple-vote-apps-nodejs/blob/master/posttest.sql
+
+note: the password of users is 123
